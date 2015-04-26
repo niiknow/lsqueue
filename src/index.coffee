@@ -14,9 +14,10 @@ class lsqueue
     return self
   persist: () ->
     self = @
-    if !store.enabled 
+    if !store.enabled
       return self
-    try 
+
+    try
       store.set(self.qn, self.items)
     catch
       # ignore localStorage error
@@ -39,7 +40,7 @@ class lsqueue
       return self.items.shift()
 
     # return empty
-    return 
+    return
   clear: () ->
     self = @
     self.items = []
