@@ -11,42 +11,38 @@ class lsqueue
     self = @
     self.qn = name or "queue"
     self.items = []
-    return self
-  persist: () ->
-    self = @
-    if !store.enabled
-      return self
+    self.persist = (debounce ->
+      if !store.enabled
+        return self
 
-    try
-      store.set(self.qn, self.items)
-    catch
-      # ignore localStorage error
+      try
+        store.set(self.qn, self.items)
+      catch
+        # ignore localStorage error
+      return self
+    , 111)
+
     return self
 
   push: (v) ->
     self = @
     self.items.push(v)
-    (debounce ->
-      self.persist()
-    , 111)()
+    self.persist()
     return self
 
   pop: () ->
     self = @
     if (self.items.length > 0)
-      (debounce ->
-        self.persist()
-      , 111)()
-      return self.items.shift()
+      rst = self.items.shift()
+      self.persist()
+      return rst
 
     # return empty
     return
   clear: () ->
     self = @
     self.items = []
-    (debounce ->
-      self.persist()
-    , 111)()
+    self.persist()
     return self
 
 module.exports = lsqueue
