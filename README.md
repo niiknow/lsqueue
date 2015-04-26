@@ -1,7 +1,5 @@
-# webanalyser
-Web analyser.
-
-This component to help with browser data detection.
+# lsqueue
+A queue backed by localStorage.
 
 ## License
 

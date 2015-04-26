@@ -1,16 +1,18 @@
 {
-  "name": "webanalyser",
+  "name": "lsqueue",
   "main": "lib/index.js",
-  "repo": "niiknow/webanalyser",
-  "description": "Web page analyser.",
+  "repo": "niiknow/lsqueue",
+  "description": "queue backed by localStorage",
   "version": "0.1.0",
   "keywords": [
-    "analytic",
-    "web"
+    "web",
+    "localStorage",
+    "queue"
   ],
   "dependencies": {
-    "avetisk/defaults": "0.0.4",
-    "niiknow/flashdetect": "*"
+    "component/json-fallback": "*",
+    "component/debounce": "*",
+    "marcuswestin/store.js": "*"
   },
   "development": {
     "component/assert": "*",

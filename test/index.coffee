@@ -1,20 +1,15 @@
-webanalyser = require('../src/index.coffee')
+queue = require('../src/index.coffee')
 assert = require('component-assert')
+store = require('store.js')
 initTime = (new Date).getTime()
 
-describe 'webanalyser.get', ->
-  it 'should return defaults', ->
-    df = webanalyser.get()
-    # make sure default.referral is not empty
-    df.dr = 'local'
-    for k, v of df
-      assert v, "#{k} should not be null or empty"
-
-    assert df.z > initTime, 'z should be higher than init time'
-    assert.equal df.dt, 'webanalyser', 'dt should be document title webanalyser'
-
-describe 'webanalyser.windowSize', ->
-  it 'should return valid width and height', ->
-    ws = webanalyser.windowSize()
-    assert ws.w > 1, 'valid width'
-    assert ws.h > 1, 'valid height'
+describe 'when push', ->
+  it 'queue should persist to localStorage', (done)->
+    q = new queue("myqueue")
+    q.push("hi")
+    setTimeout ->
+      myData = store.get('myqueue')
+      assert myData[0] is 'hi', 'queue data not found in localStorage'
+      q.pop()
+      done()
+    , 300
